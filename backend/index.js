@@ -1,8 +1,10 @@
 const express=require("express");
 const connectTomongo=require("./db");
+var cors = require('cors')
 
 connectTomongo();
 const app=express();
+app.use(cors())//to all use api
 const port=5000;
 
 app.use(express.json()) //midelware to post data

@@ -14,6 +14,7 @@ router.post('/createuser', [
     body('email','Enter a valid Email').isEmail(),
     body('password').isLength({ min: 5 })
 ],async (req,res)=>{
+    let success=false;
     //if there are error return the bad request error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -24,7 +25,7 @@ router.post('/createuser', [
         //check weather the request user already exists
     let user=await User.findOne({email:req.body.email});
     if (user){
-        return res.status(400).json({error:"Sorry! your Email is already exists"})
+        return res.status(400).json({success:false,error:"Sorry! your Email is already exists"})
     }
     //create a new user
     const password=req.body.password;
@@ -47,7 +48,7 @@ router.post('/createuser', [
         }
     }
     const authToken=jwt.sign(data,JWT_SECRET);
-    res.json({authToken:authToken}); // return key to client
+    res.json({success:true,authToken:authToken}); // return key to client
 
     }catch(error){ //if any error Occur
         console.error(error.message);
@@ -61,6 +62,7 @@ router.post('/login', [
     body('email','Enter a valid Email').isEmail(),
     body('password','Password can not be blank').exists()
 ],async (req,res)=>{
+    let success=true
     //if there are error return the bad request error
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -74,7 +76,7 @@ router.post('/login', [
         }
         const passwordcompare=await bcrypt.compare(password,user.password);
         if(!passwordcompare){
-            return res.status(500).send({error:'Please try to correct email to login'})
+            return res.status(500).send({success:false, error:'Please try to correct email to login'})
         }
         const data={
             user:{
@@ -82,7 +84,7 @@ router.post('/login', [
             }
         }
         const authToken=jwt.sign(data,JWT_SECRET);
-        res.json({authToken:authToken});
+        res.json({ success:true, authToken:authToken});
     }catch(error){ //if any error Occur
         console.error(error.message);
         res.status(500).send("internal server error occured");
