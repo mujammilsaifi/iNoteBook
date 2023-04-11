@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {useNavigate} from 'react-router-dom';
-const Signup = () => {
+const Signup = (props) => {
     const [credensials, setCredensials] = useState({name:"" ,email:"",password:""})
     let redirection=useNavigate();
     const handleSubmit= async(e)=>{
@@ -16,10 +16,12 @@ const Signup = () => {
           console.log(json)
         if(json.success){
             // redirect
-            redirection('/');
+          redirection('/');
+          props.showAlert("Account has been Created Successfully","success")
 
         }else{
             redirection('/signup');
+            props.showAlert("Try angain different email","warning")
 
         }
     }
@@ -30,6 +32,7 @@ const Signup = () => {
     <div>
         <form onSubmit={handleSubmit}>
         <div className="mb-3">
+        <h2>Signup to continue use iNotebook</h2>
         <label forindex="name" className="form-label">Name</label>
         <input type="text" className="form-control " name='name' id="name" aria-describedby="emailHelp" value={credensials.name} onChange={onChange}  minLength={5} required/>
         </div>

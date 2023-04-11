@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {useNavigate} from 'react-router-dom';
-const Login = () => {
+const Login = (props) => {
      const [credensials, setCredensials] = useState({email:"",password:""})
      let history=useNavigate();
     const handleSubmit= async(e)=>{
@@ -16,10 +16,14 @@ const Login = () => {
           console.log(json)
           if(json.success){
             // redirect
-            localStorage.setItem('token',json.authtoken);
+            localStorage.setItem('token',json.authToken);
+            props.showAlert("Login Successfully","success")
             history('/');
+            
           }else{
-            alert("invalid email password")
+            // alert("invalid email password")
+            props.showAlert("invalid email password","danger")
+            history('/login');
           }
           
     }
@@ -30,6 +34,7 @@ const Login = () => {
     <div>
         <form onSubmit={handleSubmit}>
         <div className="mb-3">
+          <h2>Login to continue use iNotebook</h2>
         <label forindex="email" className="form-label">Email address</label>
         <input type="email" className="form-control " name='email' id="email" aria-describedby="emailHelp" value={credensials.email} onChange={onChange}/>
         </div>
