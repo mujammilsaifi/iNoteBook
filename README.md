@@ -1,7 +1,7 @@
 *************************** iNotebook  Description *********************
 
 iNoteBook developed using MERN stack.In this project CURD operation can Perform , Every opertion has seprate API.
-in this project Signup Login API also done. this project you can Run using command->npm run both
+in this project Signup Login API also done. this project you can Run using command->npm run both   
 Front end and Backend are seprate created.
 
 *******************************************************************************************************
