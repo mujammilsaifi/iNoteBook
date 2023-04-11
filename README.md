@@ -1,5 +1,12 @@
-# Getting Started with Create React App
+*************************** iNotebook  Description *********************
 
+iNoteBook developed using MERN stack.In this project CURD operation can Perform , Every opertion has seprate API.
+in this project Signup Login API also done. this project you can Run using command->npm run both
+Front end and Backend are seprate created.
+
+*******************************************************************************************************
+
+# Getting Started with Create React App
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
